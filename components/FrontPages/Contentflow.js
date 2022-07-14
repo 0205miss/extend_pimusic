@@ -26,7 +26,7 @@ import closestIndexTo from 'date-fns/fp/closestIndexTo/index'
 import { WindowsFilled } from '@ant-design/icons'
 
 
-// import { APIPayment, routes } from "@pinetwork-js/api-typing";
+import { APIPayment, routes } from "@pinetwork-js/api-typing";
 
 function RenderSearch(props) {
     const router = useRouter()
@@ -95,7 +95,7 @@ function RenderSearch(props) {
 
 
             // Read more about this callback in the SDK reference:
-
+                console.log("solomone")
             const callBack = {
                 onIncompletePaymentFound: (PaymentDTO) => {
                     console.log("your payment", PaymentDTO);
@@ -221,7 +221,7 @@ function RenderSearch(props) {
 
 
                 {/* user info */}
-                {console.log('girl:', feed)}
+                
 
                 {
 
@@ -316,7 +316,12 @@ function RenderSearch(props) {
                                     </div>
                                     <div className="flex absolute md:static  right-8 space-x-2">
                                         <span>{feedData.price}𝝅</span>
-                                        <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={() => Transfer(feedData.price, feedData.id, feedData.Pfrom, feedData.user_id)}><span className="mx-2 my-2 ">Pay with Pi</span></button>
+                                        
+                                        <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={() => Transfer(feedData.price, feedData.id, feedData.Pfrom, feedData.user_id)} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button>
+
+                                       
+
+                                        
                                     </div>
                                 </div>
 
@@ -357,9 +362,12 @@ function RenderSearch(props) {
                     )
 
                 }
+    
 
                 <div className="h-20   "> </div>
             </div>
+
+           
 
         </>
     )
