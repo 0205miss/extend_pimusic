@@ -45,6 +45,16 @@ function RenderSearch(props) {
     useEffect(() => {
         const Pi = window.Pi;
         Pi.init({ version: '2.0'})
+        const scopes = ['username', 'payment']
+    function onIncompletePaymentFound(payment) {
+
+    }
+        if (typeof window !== 'undefined') {
+
+            Pi.authenticate(scopes, onIncompletePaymentFound).then
+    
+            Pi.authenticate(scopes, onIncompletePaymentFound)
+        }
         auth()
         fetchMyFeed()
     }, [])
@@ -198,17 +208,9 @@ function RenderSearch(props) {
     const handleComment = (e) => {
         settextComment(e.currentTarget.value)
     }
-    if (typeof window !== 'undefined') {
+   
 
-        Pi.authenticate(scopes, onIncompletePaymentFound).then
-
-        Pi.authenticate(scopes, onIncompletePaymentFound)
-    }
-
-    const scopes = ['username', 'payment']
-    function onIncompletePaymentFound(payment) {
-
-    }
+    
 
 
 
