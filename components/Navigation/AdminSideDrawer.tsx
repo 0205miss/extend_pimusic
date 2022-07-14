@@ -11,9 +11,9 @@ function AdminSideDrawer(props: any): ReactElement {
     const [checked, setChecked] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!props.isAuthenticated) {
-            router.push("/user/login");
-        }
+        // if (!props.isAuthenticated) {
+        //     router.push("/user/login");
+        // }
     }, [props.isAuthenticated]);
 
     let sideDrawClasses = 'sidedrawer'
