@@ -102,6 +102,7 @@ function RenderSearch(props) {
 
                 },
                 onReadyForServerApproval: (paymentId) => {
+                    console.log("entering here !")
 
                     var data = {
                         'action': 'approve',
