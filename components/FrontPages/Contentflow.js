@@ -71,8 +71,9 @@ function RenderSearch(props) {
             }
             return axios.post('https://nurbansports.com/pimus/public/pinetworkpay', data)
         }
+         console.log("auth user !")
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
-            console.log(auth.user.username)
+            console.log(`Hi there! You're ready to make payments!`);
         }).catch(function (error) {
             console.log(error)
         })
