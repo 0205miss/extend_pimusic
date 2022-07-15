@@ -45,16 +45,16 @@ function RenderSearch(props) {
         const Pi = window.Pi;
         Pi.init({ version: '2.0', sandbox: true})
 
-        const scopes = ['username', 'payment']
-    function onIncompletePaymentFound(payment) {
+    //     const scopes = ['username', 'payment']
+    // function onIncompletePaymentFound(payment) {
 
-    }
-        if (typeof window !== 'undefined') {
+    // }
+    //     if (typeof window !== 'undefined') {
 
-            Pi.authenticate(scopes, onIncompletePaymentFound).then
+    //         Pi.authenticate(scopes, onIncompletePaymentFound).then
     
-            Pi.authenticate(scopes, onIncompletePaymentFound)
-        }
+    //         Pi.authenticate(scopes, onIncompletePaymentFound)
+    //     }
         auth()
         fetchMyFeed()
     }, [])
@@ -62,7 +62,7 @@ function RenderSearch(props) {
 
     const auth = async () => {
 
-        const scopes = ['username', 'payments']
+        const scopes = ['payments']
         console.log(scopes)
 
         function onIncompletePaymentFound(payment) {
