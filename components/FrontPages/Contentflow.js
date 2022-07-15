@@ -61,8 +61,13 @@ function RenderSearch(props) {
 
 
     const auth = async () => {
+
         const scopes = ['username', 'payments']
+        console.log(scope)
+
         function onIncompletePaymentFound(payment) {
+            console.log("onincomplete")
+
             var data = {
                 'action': 'incomplete',
                 'paymentId': payment,
