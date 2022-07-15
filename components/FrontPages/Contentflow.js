@@ -38,22 +38,23 @@ function RenderSearch(props) {
     const [like, setLike] = useState("");
     const [isLike, setIsLike] = useState(false);
     const userID = props.isAuthenticated.id
+    
 
 
     useEffect(() => {
         const Pi = window.Pi;
         Pi.init({ version: '2.0', sandbox: true})
-        
+
         const scopes = ['username', 'payment']
     function onIncompletePaymentFound(payment) {
 
     }
-       // if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
 
             Pi.authenticate(scopes, onIncompletePaymentFound).then
     
             Pi.authenticate(scopes, onIncompletePaymentFound)
-        //}
+        }
         auth()
         fetchMyFeed()
     }, [])
@@ -140,10 +141,11 @@ function RenderSearch(props) {
 
 
                 onCancel: (paymentid) => {
+                    console.log("cancelling payment!")
 
                 },
                 onError: (payment) => {
-
+                    console.log("error in payment!")
                 }
             }
 
