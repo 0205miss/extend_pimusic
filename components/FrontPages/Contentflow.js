@@ -26,8 +26,6 @@ import closestIndexTo from 'date-fns/fp/closestIndexTo/index'
 import { WindowsFilled } from '@ant-design/icons'
 
 
-import { APIPayment, routes } from "@pinetwork-js/api-typing";
-
 function RenderSearch(props) {
     const router = useRouter()
     const [feed, setFeed] = useState([]);
@@ -45,16 +43,17 @@ function RenderSearch(props) {
     useEffect(() => {
         const Pi = window.Pi;
         Pi.init({ version: '2.0', sandbox: true})
+        
         const scopes = ['username', 'payment']
     function onIncompletePaymentFound(payment) {
 
     }
-        if (typeof window !== 'undefined') {
+       // if (typeof window !== 'undefined') {
 
             Pi.authenticate(scopes, onIncompletePaymentFound).then
     
             Pi.authenticate(scopes, onIncompletePaymentFound)
-        }
+        //}
         auth()
         fetchMyFeed()
     }, [])
