@@ -40,9 +40,11 @@
     "react-query": "^3.26.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^6.2.1",
+    "react-scroll-to-bottom": "^4.2.0",
     "recoil": "^0.5.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.5.1",
     "tinyurl": "^1.1.7",
     "validator": "^13.5.2",
     "yup": "^0.32.11"

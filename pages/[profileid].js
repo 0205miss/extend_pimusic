@@ -16,10 +16,13 @@ function Index(props) {
     const [startchat, setStartChat] = useState(false)
     const [ click, setClick ]  = useState(false)
 
+   console.log(startchat)
      
         const handleClicking = () => {
             setStartChat(!startchat)
-    
+        }
+        const toggleEndChat = () => {
+            setStartChat(!startchat)
         }
 
     
@@ -46,7 +49,7 @@ function Index(props) {
 
     return (
         <div>
-            <ChatBox showchat={startchat}  />
+            <ChatBox showchat={startchat}  userInfo={userinfo}  toggleEnd={toggleEndChat} />
             <div className="ml-2 h-[3.5em]  top-0 altnav border-b-2 ">
                 <div className="flex space-x-4 mt-4 absolute">
                     <Link href="/home">

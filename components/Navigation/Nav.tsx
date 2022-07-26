@@ -32,9 +32,9 @@ const Nav = (props: any) => {
     }
 
     useEffect(() => {
-        // if (!props.isAuthenticated) {
-        //     router.push("/user/login");
-        // }
+        if (!props.isAuthenticated) {
+            router.push("/user/login");
+        }
     }, [props.isAuthenticated]);
 
 

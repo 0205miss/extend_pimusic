@@ -97,15 +97,15 @@ export class AuthGuard {
                  * infinite loop of redirections to /user/login.
                  */
                 if (pathname === "/auths") {
-                    // res.end();
-                    // return { user: false };
+                    res.end();
+                    return { user: false };
                 }
 
-                // res.writeHead(302, {
-                //     Location: "/auths",
-                // });
-                // res.end();
-                // return { user: false };
+                res.writeHead(302, {
+                    Location: "/auths",
+                });
+                res.end();
+                return { user: false };
             }
 
             /**
@@ -133,18 +133,18 @@ export class AuthGuard {
                 currentUser &&
                 (pathname === "/auth" || pathname === "/auths")
             ) {
-                // res.writeHead(302, {
-                //     Location: "/",
-                // });
-                // res.end();
+                res.writeHead(302, {
+                    Location: "/",
+                });
+                res.end();
             }
             // Redirect to login if user is not authenticated and tries to access protected route.
             else if (!currentUser && !isNoProtectedRoute) {
-                // res.writeHead(302, {
-                //     Location: "/auths",
-                // });
-                // res.end();
-                // return { user: false };
+                res.writeHead(302, {
+                    Location: "/auths",
+                });
+                res.end();
+                return { user: false };
             }
 
             // Return the currently authenticated user.
@@ -163,13 +163,13 @@ export class AuthGuard {
                 error.response.status === 401 &&
                 !isNoProtectedRoute
             ) {
-                // if (pathname === "/auths") {
-                //     return { user: false };
-                // }
-                // res.writeHead(302, {
-                //     Location: "/auths",
-                // });
-                // res.end();
+                if (pathname === "/auths") {
+                    return { user: false };
+                }
+                res.writeHead(302, {
+                    Location: "/auths",
+                });
+                res.end();
             }
             return { user: false };
         }

@@ -20,12 +20,13 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { BsBookmarkCheck } from "react-icons/bs";
 import {BsChatSquare } from "react-icons/bs"
 import Link from "next/link";
+import io from "socket.io-client";
 
 import { formattedDate, commentPost, likePost, bookaPost } from '@/components/FrontPages/Imageupload/Util'
 import Like from "@/components/Like2"
 
 function Profilepix(props) {
-
+    const socket = io.connect("http://localhost:3001");
     const [img, setImg] = useState(null);
     const [pic, setPic] = useState(null);
     const [videofeeds, setVideoFeeds] = useState(false);
@@ -33,6 +34,16 @@ function Profilepix(props) {
     const [Albam, setAlbam] = useState(false);
     const [audio, setdAudio] = useState(false);
     const [track, setTrack] = useState([])
+   
+    var room = props.isAuthenticated.username + '/' + props.userinfo.username;
+
+    const joinRoom = () => {
+        if (room !== "") {
+            console.log(room)
+          socket.emit("join_room", room);
+          
+        }
+      };
 
 
     useEffect(() => {
@@ -212,7 +223,10 @@ function Profilepix(props) {
                             <AiFillInstagram className="text-xl" />
                             <IoLogoTwitter className="text-xl" />
                             <IoLogoTiktok className="text-xl" />
-                            <div className='flex space-x-2 hoverbtn'onClick={props.chat}>
+                            <div className='flex space-x-2 hoverbtn'onClick={() => {
+                                props.chat(),
+                                joinRoom()
+                                }}>
                             <BsChatSquare className="text-xl hoverbtn" />
                             <h2 className='hoverbtn' >let's chat</h2>
                             </div>
@@ -442,8 +456,13 @@ function Profilepix(props) {
 
 
 
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.user,
+    loginError: state.auth.loginError,
+    loading: state.auth.loginLoading,
+});
 
-export default Profilepix;
+export default connect(mapStateToProps)(Profilepix);
 
 
 
