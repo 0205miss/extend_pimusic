@@ -290,9 +290,22 @@ function RenderSearch(props) {
                                     <div className="">
                                         <div className="">
                                             <p className="text-sm text-[#4a4a58]">
-                                                {feedData.description}
+                                                {
+
+                                                 feedData.description.length >  100 ? `${feedData.description.substring(0, 90)}...` : feedData.description  
+                                               }
                                             </p>
-                                            <span className="text-[#f04c30]">More..</span>
+                                            {
+                                                feedData.description.length >  10 ?
+                                                <>
+                                                 <Link href={'/' + feedData.userid}>
+                                                <span className="text-[#f04c30]">More..</span>
+                                                </Link>
+                                               </>
+                                                :
+                                                <>
+                                                </>
+                                           }
                                         </div>
 
                                         <div className="">

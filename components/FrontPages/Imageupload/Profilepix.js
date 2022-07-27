@@ -26,7 +26,8 @@ import { formattedDate, commentPost, likePost, bookaPost } from '@/components/Fr
 import Like from "@/components/Like2"
 
 function Profilepix(props) {
-    const socket = io.connect("http://localhost:3001");
+    console.log("ol--lo",props)
+    const socket = io.connect("http://localhost:5000/");
     const [img, setImg] = useState(null);
     const [pic, setPic] = useState(null);
     const [videofeeds, setVideoFeeds] = useState(false);
@@ -36,12 +37,12 @@ function Profilepix(props) {
     const [track, setTrack] = useState([])
    
     var room = props.isAuthenticated.username + '/' + props.userinfo.username;
-
+     var Authuser = props.isAuthenticated.username;
+     var dimuser = props.userinfo.username;
     const joinRoom = () => {
         if (room !== "") {
             console.log(room)
-          socket.emit("join_room", room);
-          
+          socket.emit("join", {room, Authuser,dimuser});
         }
       };
 

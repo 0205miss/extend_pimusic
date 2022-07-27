@@ -8,11 +8,9 @@ import io from "socket.io-client";
 
 
 function Chatbox(props) {
-
-  console.log("io-oli-li",props)
    const activeuser = props.isAuthenticated.id
    const Dmuser = props.userInfo.id
-   const socket = io.connect("http://localhost:3001");
+   const socket = io.connect("http://localhost:5000");
    const [currentMessage, setCurrentMessage] = useState("");
    const [messageList, setMessageList] = useState([]);
 
@@ -25,6 +23,7 @@ function Chatbox(props) {
         message: currentMessage,
         activeusername: props.isAuthenticated.username,
         dmusername: props.userInfo.username,
+        room: props.isAuthenticated.username+'/'+ props.userInfo.username,
         time:
           new Date(Date.now()).getHours() +
           ":" +

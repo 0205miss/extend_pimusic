@@ -167,6 +167,7 @@ export function TextSelect(props: any): ReactElement {
                 }
 
             </select>
+            
             {/* Shor error message if given. */}
             {props.errorMsg && (
                 <div className="text-red-500">{props.errorMsg}</div>

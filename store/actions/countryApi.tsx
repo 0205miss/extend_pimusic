@@ -4,4 +4,4 @@ export const country =
 
 
 export const musicGenre = [
-    'Hip hop Music', 'Pop Music', 'Reggae Music', 'Rock Music', 'Blues Music', 'Jazz Music', "Gospel Music", 'Rhythm and Blue(R&B)', 'Highlife', 'Instrumental', 'Drum and Bass', 'Chant', 'Electronic Dance', 'Disco', 'Swing Music', 'Punk Rock', 'K-pop', 'American folk Music', 'Funk', 'Singing', 'Dance Music', 'Trance Music']
+    'Hip hop Music', 'Pop Music', 'Reggae Music', 'Rock Music', 'Blues Music', 'Jazz Music', "Gospel Music", 'Rhythm and Blue', 'Highlife', 'Instrumental', 'Drum and Bass', 'Chant', 'Electronic Dance', 'Disco', 'Swing Music', 'Punk Rock', 'K-pop', 'American folk Music', 'Funk', 'Singing', 'Dance Music', 'Trance Music']

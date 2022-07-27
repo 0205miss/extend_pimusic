@@ -47,11 +47,11 @@ export class UserValidator {
             password: "",
         };
         // Check name.
-        const isNameValid = this.validateName(name);
-        if (!isNameValid) {
-            errors.name = "The name may only contain letters.";
-            errorDetected = true;
-        }
+        // const isNameValid = this.validateName(name);
+        // if (!isNameValid) {
+        //     errors.name = "The name may only contain letters.";
+        //     errorDetected = true;
+        // }
 
         // const isUserNameValid = this.validateName(name);
         // if (!isUserNameValid) {
@@ -59,23 +59,23 @@ export class UserValidator {
         //     errorDetected = true;
         // }
 
-        const isSelectvalid = this.validateName(career);
-        if (!isSelectvalid) {
-            errors.career = "Please select a career.";
-            errorDetected = true;
-        }
+        // const isSelectvalid = this.validateName(career);
+        // if (!isSelectvalid) {
+        //     errors.career = "Please select a career.";
+        //     errorDetected = true;
+        // }
 
-        const isSelectgenvalid = this.validateName(genre);
-        if (!isSelectgenvalid) {
-            errors.genre = "Please select a genre.";
-            errorDetected = true;
-        }
+        // const isSelectgenvalid = this.validateName(genre);
+        // if (!isSelectgenvalid) {
+        //     errors.genre = "Please select a genre.";
+        //     errorDetected = true;
+        // }
 
-        const isSelectcountvalid = this.validateName(country);
-        if (!isSelectcountvalid) {
-            errors.country = "Please select a country.";
-            errorDetected = true;
-        }
+        // const isSelectcountvalid = this.validateName(country);
+        // if (!isSelectcountvalid) {
+        //     errors.country = "Please select a country.";
+        //     errorDetected = true;
+        // }
         // Check password.
         const isPasswordValid = this.validatePassword(
             password,
@@ -108,10 +108,10 @@ export class UserValidator {
      * @param {string} name
      *   The name of the user.
      */
-    public validateName(name: string): boolean {
+    public validateName(name: string): {
         // Removes spaces as validator does not count them as letters.
-        const tmp = name.replace(" ", "");
-        return validator.isAlpha(tmp);
+        // const tmp = name.replace("","");
+        // return validator.isAlpha(tmp);
     }
 
     /**

@@ -12,7 +12,9 @@ import { NextRouter, useRouter } from "next/router";
 function uploader(props) {
 
     const [selectedFile, setSelectedFiles] = useState([])
+    const [selectedFile2, setSelectedFiles2] = useState([])
     const [fileList, setFileList] = useState([])
+    const [fileList2, setFileList2] = useState([])
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [msg, setMsg] = useState('')
@@ -86,6 +88,27 @@ function uploader(props) {
 
             setSelectedFiles((prevImages) => prevImages.concat(filesArray));
 
+
+            Array.from(e.target.files).map(
+                (file) => URL.revokeObjectURL(file) // avoid memory leak
+            );
+        }
+    };
+
+
+    const handleImageChange2 = (e) => {
+
+
+        setFileList2(e.target.files)
+        if (e.target.files) {
+            const filesArray = Array.from(e.target.files).map((file) =>
+                URL.createObjectURL(file)
+            );
+
+
+
+            setSelectedFiles2((prevImages) => prevImages.concat(filesArray));
+
             Array.from(e.target.files).map(
                 (file) => URL.revokeObjectURL(file) // avoid memory leak
             );
@@ -94,14 +117,26 @@ function uploader(props) {
 
     const renderFiles = (source) => {
 
-        return source.map((photo) => {
+        // return source.map((photo) => {
             return <video
                 className="h-[130px] w-[130px] mb-4"
                 controls
-                src={photo}
+                src={source}
             />
                 ;
-        });
+        // });
+    }
+
+    const renderFiles2 = (source) => {
+
+        // return source.map((photo) => {
+            return <video
+                className="h-[130px] w-[130px] mb-4"
+                controls
+                src={source}
+            />
+                ;
+        // });
     }
 
 
@@ -127,15 +162,29 @@ function uploader(props) {
                 <div className="flex md:relative justify-between ">
                     <div className="flex items-center space-x-6 ml-4">
                         <div >
-                            <label htmlFor="file">
+                           <div className='flex space-x-8'>
+                           <label htmlFor="file">
                                 <div className="border-dotted h-20 w-20  justify-center border-2">
-                                    <h2 className="ml-2 mt-4">Add File</h2>
+                                    <h2 className="ml-2 mt-4">Add File Preview</h2>
                                     <HiPlusSm className="text-2xl ml-6 " />
                                 </div>
-                                <input type="file" className="hidden" multiple id="file" onChange={handleImageChange} />
+                                <input type="file" className="hidden"  id="file" onChange={handleImageChange2} />
                             </label>
+                            <label htmlFor="file">
+                                <div className="border-dotted h-20 w-20  justify-center border-2">
+                                    <h2 className="ml-2 mt-4">Add Main File </h2>
+                                    <HiPlusSm className="text-2xl ml-6 " />
+                                    
+                                </div>
+                                <input type="file" className="hidden"  id="file" onChange={handleImageChange} />
+                            </label>
+                            
+                           </div>
+                           <p className='w-80 text-xs mt-4'><span className=' font-semibold'>Note:</span> The File preview display on time as a preview of the Main file content, <span className='text-[#f04c30]'>learn more</span>  </p>
                             <div className="mt-4">
                                 <div className="border-t-2 border-b-2 space-x-2 ml-[-12px] border-[#aca7a7] w-[310px] grid grid-cols-3">
+
+                                    {renderFiles2(selectedFile2)}
 
                                     {renderFiles(selectedFile)}
 
