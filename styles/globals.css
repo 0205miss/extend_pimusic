@@ -582,6 +582,10 @@ color: #f04c30;
   border-top: none;
   display: flex;
 }
+.upload-cover-btn{
+  z-index: 99;
+
+}
 
 .chat-window .chat-footer input {
   height: 100%;
