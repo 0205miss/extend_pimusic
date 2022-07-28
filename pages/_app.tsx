@@ -27,6 +27,7 @@ import Altnav from "@/components/Navigation/Altnav";
 import Lsidebar from "@/components/Navigation/Lsidebar";
 import Rsidebar from "@/components/Navigation/Rsidebar";
 import { Chart } from "react-chartjs-2";
+import ControlUserAction from "@/components/Layout/Controluser";
 
 
 
@@ -85,6 +86,7 @@ function MyApp(props: any) {
     const [DrawIsOpen, setDrawIsOpen] = useState(false)
     const [isHovering, setisHovering] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+    // const [controls, setControls] = useState(false)
 
     const [click, setClick] = useState(false)
 
@@ -95,7 +97,7 @@ function MyApp(props: any) {
     }
 
   
-
+      const controls = false
 
     // handling the toggle 
 
@@ -126,6 +128,7 @@ function MyApp(props: any) {
 
     let hovering;
     let backDrop;
+    let controluser =<ControlUserAction /> ;
 
 
 
@@ -135,6 +138,8 @@ function MyApp(props: any) {
     if (isHovering) {
         hovering = <Dropdown />
     }
+
+     
 
 
     if (url.pathname === "/auth" || url.pathname === "/auths" || url.pathname === "/user/login") {
@@ -213,7 +218,7 @@ function MyApp(props: any) {
         <div style={{ height: '100%' }}>
             <Provider store={store}>
                 <QueryClientProvider client={queryClient}>
-
+                    
                     <Minnav isOpen={click} toggle={handleClick} />
                     <Nav toggle={handleClick} clicks={click} />
                     <Rsidebar show={DrawIsOpen} />
@@ -221,7 +226,7 @@ function MyApp(props: any) {
                     
                     {hovering}
                     {backDrop}
-
+                     {/* {controluser} */}
                     <props.Component {...props.pageProps} />
                     {/* {isNoProtectedRoute && <AdvancedFooter />} */}
                     <MinFooter show={siderDrawerToggle} />
@@ -237,6 +242,7 @@ function MyApp(props: any) {
 MyApp.propTypes = {
     Component: PropTypes.elementType,
     pageProps: PropTypes.object,
+    // usercontrol : PropTypes.controls,
 };
 
 /**

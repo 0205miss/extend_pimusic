@@ -11,6 +11,7 @@ import { H1 } from "./../components/Typography/Headers";
 import FrontPage from '../components/Layout/FrontPage'
 import { connect } from "http2";
 export default function Home({ prod }) {
+    console.log("oooe",prod)
     process.env.NODE_ENV !== 'production'
     return (
         <>

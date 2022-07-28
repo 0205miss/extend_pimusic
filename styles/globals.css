@@ -350,6 +350,12 @@ color: #f04c30;
   top: 0;
 }
 
+.complete-popup {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+}
+
 .chatbox {
   background: white;
   z-index: 100;

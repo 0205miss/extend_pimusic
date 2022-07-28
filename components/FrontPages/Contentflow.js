@@ -24,6 +24,8 @@ import { Descriptions } from 'antd'
 import { connect } from "react-redux";
 import closestIndexTo from 'date-fns/fp/closestIndexTo/index'
 import { WindowsFilled } from '@ant-design/icons'
+import ControlUserAction from '../Layout/Controluser'
+
 
 
 function RenderSearch(props) {
@@ -33,6 +35,7 @@ function RenderSearch(props) {
     const [postId, setPostId] = useState('');
     const [textComment, settextComment] = useState('');
     const [textmsg, setTextmsg] = useState('');
+    const [startups, setStartup] = useState('');
 
 
     const [like, setLike] = useState("");
@@ -84,6 +87,7 @@ function RenderSearch(props) {
 
 
     }
+    
 
     console.log("feeds:",feed)
 
@@ -190,6 +194,17 @@ function RenderSearch(props) {
         bookaPost(paraval, 'favourite')
     }
 
+    
+
+    const startup = () => {
+        console.log('skkskskksk')
+      setStartup(!startups)
+    }
+      let controlx ;
+     if(startups){
+         controlx = <ControlUserAction backnorm={startup}/>
+     }
+
     const submitComment = async (param) => {
         const post_id = param
         const comment = textComment
@@ -225,6 +240,7 @@ function RenderSearch(props) {
         <>
 
             <div className="mt-[-40px] ">
+                
 
                 {/* <Media2 /> */}
 
@@ -339,9 +355,10 @@ function RenderSearch(props) {
                                     <div className="flex absolute md:static  right-8 space-x-2">
                                         <span>{feedData.price}𝝅</span>
                                         
-                                        <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={() => Transfer(feedData.price, feedData.id, feedData.Pfrom, feedData.user_id)} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button>
+                                        {/* <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={() => Transfer(feedData.price, feedData.id, feedData.Pfrom, feedData.user_id)} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button> */}
 
-                                       
+                                    <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={ startup} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button> 
+
 
                                         
                                     </div>
@@ -390,7 +407,7 @@ function RenderSearch(props) {
             </div>
 
            
-
+                {controlx}
         </>
     )
 }

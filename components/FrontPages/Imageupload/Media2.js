@@ -221,7 +221,7 @@ function uploader(props) {
                               <label htmlFor="videos">
                                 <div className="border-dotted h-20 w-20  justify-center border-2">
                                     
-                                     <h2 className="ml-2 mt-4">Add File Preview</h2>
+                                     <h2 className="ml-2 mt-4">Add Main File</h2>
                             
                                     <HiPlusSm className="text-2xl ml-6 " />
                                 </div>
@@ -247,7 +247,7 @@ function uploader(props) {
                                 <>
                                 <label htmlFor="file">
                                 <div className="border-dotted h-20 w-20  justify-center border-2">
-                                    <h2 className="ml-2 mt-4">Add Main File </h2>
+                                    <h2 className="ml-2 mt-4">Add Preview </h2>
                                     <HiPlusSm className="text-2xl ml-6 " />
                                     
                                 </div>
