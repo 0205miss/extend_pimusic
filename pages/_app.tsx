@@ -186,7 +186,7 @@ function MyApp(props: any) {
     }
 
 
-    if (url.pathname === "/profile" || url.pathname == "/bookmark" || url.pathname == "/preference" || url.pathname == "/wallet" || url.pathname == "/help" || url.pathname == "/postfeeds") {
+    if (url.pathname === "/profile" || url.pathname == "/bookmark" || url.pathname == "/preference" || url.pathname == "/transaction" || url.pathname == "/help" || url.pathname == "/postfeeds") {
 
         return (
 

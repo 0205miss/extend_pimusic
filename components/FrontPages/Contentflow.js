@@ -37,6 +37,8 @@ function RenderSearch(props) {
     const [textmsg, setTextmsg] = useState('');
     const [startups, setStartup] = useState('');
 
+    const [contentInfo, setContentInfo] = useState([])
+ 
 
     const [like, setLike] = useState("");
     const [isLike, setIsLike] = useState(false);
@@ -196,13 +198,18 @@ function RenderSearch(props) {
 
     
 
-    const startup = () => {
-        console.log('skkskskksk')
+    const startup = (valP, identity, career, userID) => {
+        const data = {valP, identity, career, userID}
+          setContentInfo(data)
       setStartup(!startups)
     }
+
+    
+
+
       let controlx ;
      if(startups){
-         controlx = <ControlUserAction backnorm={startup}/>
+         controlx = <ControlUserAction backnorm={startup} contentInfo={contentInfo} />
      }
 
     const submitComment = async (param) => {
@@ -357,7 +364,7 @@ function RenderSearch(props) {
                                         
                                         {/* <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={() => Transfer(feedData.price, feedData.id, feedData.Pfrom, feedData.user_id)} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button> */}
 
-                                    <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={ startup} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button> 
+                                    <button className=" btnactive rounded-lg border-2 bg-[#f04c30] text-white" onClick={() => startup(feedData.price, feedData.id, feedData.Pfrom, feedData.user_id)} type="button" data-modal-toggle="popup-modal"><span className="mx-2 my-2 ">Pay with Pi</span></button> 
 
 
                                         

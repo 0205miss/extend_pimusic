@@ -1,6 +1,6 @@
+
 import { useState, useEffect } from 'react'
-import React from 'react'
-import { useKeenSlider } from "keen-slider/react"
+
 // import Renderinfo from './Renderinfo'
 import { Upload, Modal, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -22,12 +22,8 @@ import Cookies from 'js-cookie';
 import { Descriptions } from 'antd'
 // import { appendFile } from 'fs/promises'
 import { connect } from "react-redux";
-import closestIndexTo from 'date-fns/fp/closestIndexTo/index'
 
-
-
-
-function bookmark(props) {
+function transaction(props) {
     const router = useRouter()
     const [feed, setFeed] = useState([]);
     const [comment, setComment] = useState(false);
@@ -46,48 +42,16 @@ function bookmark(props) {
         const token = Cookies.get(TOKEN_STORAGE_KEY);
         axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
         const res = await axios.get('/purchase');
-        setFeed(res.data.data.data)
+        console.log("sooolooooooo", res)
+        setFeed(res.data.data)
     }
-    const StartComment = (e) => {
-        const { id } = e.target
-        if (comment === true) {
-            setComment(false)
-        } else {
-            setComment(true)
-        }
-
-    }
-    const likeComment = (Para) => {
-        likePost(Para, 'post')
-    }
-
-    const bookPost = (paraval) => {
-        bookaPost(paraval, 'favourite')
-    }
-
-    const submitComment = async (param) => {
-        const post_id = param
-        const comment = textComment
-        const user_id = userID
-
-        const data = { post_id, comment, user_id }
-
-        const TOKEN_STORAGE_KEY = 'token';
-        const token = Cookies.get(TOKEN_STORAGE_KEY);
-        axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-        const res = await axios.post('/comment', data);
-        if (res.status === 201) {
-            setTextmsg("Replied successfully")
-
-        } else {
-            setTextmsg("Failed tp reply")
-        }
-    }
+    
+    
+   
 
 
-    const handleComment = (e) => {
-        settextComment(e.currentTarget.value)
-    }
+
+   
 
     return (
         <>
@@ -98,7 +62,8 @@ function bookmark(props) {
                 {/* user info */}
 
                 {
-                    feed.length > 0 &&
+                    feed.length > 0 ?
+
                     feed.map((feedData, index) =>
 
                         <>
@@ -149,81 +114,45 @@ function bookmark(props) {
                                 </div>
 
                                 {/* content  */}
-                                <Link href={'/' + feedData.id}>
+                                
                                     <div className="">
                                         <div className="">
                                             <p className="text-sm text-[#4a4a58]">
-                                                {feedData.description}
+                                              Purchase Cost:  {feedData.price}𝝅
                                             </p>
-                                            <span className="text-[#f04c30]">More..</span>
                                         </div>
 
                                         <div className="">
 
                                             <video controls
-                                                src={"https://nurbansports.com/pimus/public/timelinepix/" + feedData.img} className="h-[200px] w-full" />
+                                                src={"https://nurbansports.com/pimus/public/timelinepix/" + feedData.restrictedfile} className="h-[200px] w-full" />
 
 
 
                                         </div>
                                     </div>
-                                </Link>
+                                
 
-                                <div className="flex space-x-4 mb-4 ml-2 mt-2">
-                                    <AiOutlineMessage
-                                        id={index}
-                                        className="text-xl hover:text-[#f04c30] focus:text-[#f04c30]" onClick={StartComment} />
-                                    <Like
-                                        type="post"
-                                        modelId={feedData.id}
-                                    />
-                                    <BsBookmarkCheck className="text-xl hover:text-[#f04c30] focus:text-[#f04c30]"
-                                        id={index}
-                                        onClick={
-                                            () => bookPost(feedData.id)
-                                        }
-                                    />
-                                    <div className="flex absolute right-8 space-x-2">
-                                        <span>{feedData.price}</span>
-                                        <button className=" rounded-lg border-2 bg-[#f04c30] text-white"><span className="mx-2 my-2">Pay with Pi</span></button>
+                              
+                                    <div className="flex  right-8 space-x-2 ml-[15em] mt-2">
+    
+                                        <button className=" rounded-md h-10 border-2 bg-[#f04c30] text-white"><span className="mx-2 my-2">Download</span></button>
                                     </div>
-                                </div>
-
-                                {
-                                    comment ?
-                                        <div className="mt-4 w-full mb-8" key={index}>
-
-                                            <textarea
-                                                value={textComment}
-                                                onChange={(e) => handleComment(e)}
-                                                placeholder="Comment Here" className="w-full placeholder-gray4 p-2 " >
-
-                                            </textarea>
-
-                                            <div className="flex absolute right-8 space-x-2 mb-10 mt-1">
-                                                {
-                                                    textmsg ?
-                                                        <>
-                                                            <p className="text-green-700"> {textmsg} </p>
-                                                        </>
-                                                        :
-                                                        <>
-                                                        </>
-                                                }
-                                                <button className=" rounded-lg border-2 bg-[#f04c30] text-white"><span className="mx-2 my-2" onClick={
-                                                    () => submitComment(feedData.id)
-
-                                                }>Reply</span></button>
-
-                                            </div>
-                                        </div>
-                                        :
-                                        <></>
-                                }
-
+                                    
+                                
                             </div>
+                            <div className='h-6'></div>
                         </>
                     )
+
+                    :
+                    <>
+                    <div className="">
+                                <h3>
+                                    You have not made any purchase
+                        </h3>
+                            </div>
+                    </>
 
                 }
 
@@ -234,11 +163,13 @@ function bookmark(props) {
     )
 }
 
+
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.user,
     loginError: state.auth.loginError,
     loading: state.auth.loginLoading,
 });
 
-export default connect(mapStateToProps)(bookmark);
+export default connect(mapStateToProps)(transaction);
+
 

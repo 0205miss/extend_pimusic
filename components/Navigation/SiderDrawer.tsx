@@ -88,10 +88,10 @@ function SiderDrawer(props: any) {
                         </div>
                     </Link>
 
-                    <Link href="/wallet">
+                    <Link href="/transaction">
                         <li className="flex space-x-2" onClick={props.drawback}>
                             <BiWallet className="text-2xl" />
-                            <a>Wallet</a>
+                            <a>Transactions</a>
                         </li>
                     </Link>
                     <Link href="/preference">
