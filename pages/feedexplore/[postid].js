@@ -93,8 +93,12 @@ const PostDetail = (props) => {
                         </div>
                     </div>
                     <p className="text-sm text-[#4a4a58]">
-                        {postData.description}
-                    </p>
+                                                {
+
+                                                 postData.description  
+                                               }
+                                            </p>
+                                           
 
 
                     <div className="">

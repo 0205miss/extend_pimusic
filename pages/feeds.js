@@ -151,10 +151,23 @@ function feeds(props) {
                                     <Link href={'/' + feedData.id}>
                                         <div className="">
                                             <div className="">
-                                                <p className="text-sm text-[#4a4a58]">
-                                                    {feedData.description}
-                                                </p>
+                                            <p className="text-sm text-[#4a4a58]">
+                                                {
+
+                                                 feedData.description.length >  100 ? `${feedData.description.substring(0, 90)}...` : feedData.description  
+                                               }
+                                            </p>
+                                            {
+                                                feedData.description.length >  10 ?
+                                                <>
+                                                 <Link href={'feedexplore/' + feedData.id}>
                                                 <span className="text-[#f04c30]">More..</span>
+                                                </Link>
+                                               </>
+                                                :
+                                                <>
+                                                </>
+                                           }
                                             </div>
 
                                             <div className="">

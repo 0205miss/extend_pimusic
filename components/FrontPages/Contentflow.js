@@ -299,7 +299,7 @@ function RenderSearch(props) {
                                     <div className="mt-6 flex">
                                         <Link href={'/' + feedData.userid}>
                                             <div className="">
-                                                <h2 className="text-#4a4a58">{feedData.f_name}({feedData.career})</h2>
+                                                <h2 className="text-#4a4a58">{feedData.f_name}</h2>
                                                 <p className="text-sm text-[#f04c30]">@{feedData.username}</p>
                                             </div>
                                         </Link>
@@ -321,7 +321,7 @@ function RenderSearch(props) {
                                             {
                                                 feedData.description.length >  10 ?
                                                 <>
-                                                 <Link href={'/' + feedData.userid}>
+                                                 <Link href={'feedexplore/' + feedData.id}>
                                                 <span className="text-[#f04c30]">More..</span>
                                                 </Link>
                                                </>

@@ -252,7 +252,11 @@ function Profilepix(props) {
                                     </div>
                                     <div className="w-[120px] border-[1px] shadow-lg flex space-x-4" onClick={() => toggledivContainer('audiofeed')} >
                                         <MdAudiotrack className="text-xl" />
-                                        <p>Records</p>
+                                        <p>Videos</p>
+                                    </div>
+                                    <div className="w-[120px] border-[1px] shadow-lg flex space-x-4" onClick={() => toggledivContainer('audiofeed')} >
+                                        <MdAudiotrack className="text-xl" />
+                                        <p>Audio</p>
                                     </div>
 
 
@@ -345,10 +349,23 @@ function Profilepix(props) {
                                                 <Link href={'feedexplore/' + feedData.id}>
                                                     <div className="">
                                                         <div className="">
-                                                            <p className="text-sm text-[#4a4a58]">
-                                                                {feedData.description}
-                                                            </p>
-                                                            <span className="text-[#f04c30]">More..</span>
+                                                        <p className="text-sm text-[#4a4a58]">
+                                                {
+
+                                                 feedData.description.length >  100 ? `${feedData.description.substring(0, 90)}...` : feedData.description  
+                                               }
+                                            </p>
+                                            {
+                                                feedData.description.length >  10 ?
+                                                <>
+                                                 <Link href={'/' + feedData.userid}>
+                                                <span className="text-[#f04c30]">More..</span>
+                                                </Link>
+                                               </>
+                                                :
+                                                <>
+                                                </>
+                                           }
                                                         </div>
 
                                                         <div className="">

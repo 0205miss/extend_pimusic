@@ -45,7 +45,7 @@ function bookmark(props) {
         const TOKEN_STORAGE_KEY = 'token';
         const token = Cookies.get(TOKEN_STORAGE_KEY);
         axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-        const res = await axios.get('/purchase');
+        const res = await axios.get('/bookmark-list');
         setFeed(res.data.data.data)
     }
     const StartComment = (e) => {
@@ -98,7 +98,7 @@ function bookmark(props) {
                 {/* user info */}
 
                 {
-                    feed.length > 0 &&
+                    feed.length > 0  ? 
                     feed.map((feedData, index) =>
 
                         <>
@@ -152,10 +152,23 @@ function bookmark(props) {
                                 <Link href={'/' + feedData.id}>
                                     <div className="">
                                         <div className="">
-                                            <p className="text-sm text-[#4a4a58]">
-                                                {feedData.description}
+                                        <p className="text-sm text-[#4a4a58]">
+                                                {
+
+                                                 feedData.description.length >  100 ? `${feedData.description.substring(0, 90)}...` : feedData.description  
+                                               }
                                             </p>
-                                            <span className="text-[#f04c30]">More..</span>
+                                            {
+                                                feedData.description.length >  10 ?
+                                                <>
+                                                 <Link href={'feedexplore/' + feedData.id}>
+                                                <span className="text-[#f04c30]">More..</span>
+                                                </Link>
+                                               </>
+                                                :
+                                                <>
+                                                </>
+                                           }
                                         </div>
 
                                         <div className="">
@@ -223,7 +236,18 @@ function bookmark(props) {
 
                             </div>
                         </>
+
+                       
                     )
+                    :
+
+                    <>
+                     <div className="">
+                                <h3>
+                                    No Bookmark yet
+                        </h3>
+                            </div>
+                    </>
 
                 }
 
@@ -241,4 +265,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(bookmark);
-
