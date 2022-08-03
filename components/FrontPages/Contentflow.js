@@ -178,15 +178,16 @@ function RenderSearch(props) {
 
         setFeed(res.data.data.data)
     }
-    const StartComment = (e) => {
-        const { id } = e.target
-        if (comment === true) {
-            setComment(false)
-        } else {
-            setComment(true)
-        }
+    // const StartComment = (e) => {
+    //     const { id } = e.target
 
-    }
+    //     if (comment === true) {
+    //         setComment(false)
+    //     } else {
+    //         setComment(true)
+    //     }
+
+    // }
     const likeComment = (Para) => {
         console.log(Para)
         likePost(Para, 'post')
@@ -339,13 +340,14 @@ function RenderSearch(props) {
                                 </Link>
 
                                 <div className="flex space-x-4 mb-4 ml-2 mt-2">
+                                    <Link href={'feedexplore/' + feedData.id}>
                                     <AiOutlineMessage
+            
                                         id={index}
-                                        className="text-xl hover:text-[#f04c30] focus:text-[#f04c30]" onClick={StartComment} />
-
-
+                                        className="text-xl hover:text-[#f04c30] focus:text-[#f04c30]" />
+                                        </Link>
                                     <Like
-                                        type="post"
+                                        type="post" 
                                         modelId={feedData.id}
                                     />
 

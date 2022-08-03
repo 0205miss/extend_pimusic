@@ -12,6 +12,9 @@ import Like  from '@/components/Like'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { MdFavoriteBorder } from "react-icons/md";
 import { BsBookmarkCheck } from "react-icons/bs";
+import { connect } from "react-redux";
+
+
 
 import { AiFillCar } from 'react-icons/ai'
 import { AiOutlineSafety } from 'react-icons/ai'
@@ -22,6 +25,7 @@ import { RiUserLocationFill } from 'react-icons/ri'
 import { useRouter } from 'next/router';
 
 import { IPost } from '../../setups';
+import io from "socket.io-client";
 
 
 
@@ -33,6 +37,24 @@ const PostDetail = (props) => {
     const [commentData, setcommentData] = useState('');
     const [likes, setLikes] = useState("");
     const [isLiked, setIsLiked] = useState(false);
+    const [textComment, settextComment] = useState('');
+    const [textmsg, setTextmsg] = useState('');
+    const [comment, setComment] = useState(true);
+
+    const socket = io.connect("http://localhost:5000");
+    
+
+    const StartComment = (e) => {
+        const { id } = e.target
+        if (comment === false) {
+            setComment(true)
+        } else {
+            setComment(false)
+        }
+
+    }
+    
+
    
 
     useEffect(() => {
@@ -44,12 +66,26 @@ const PostDetail = (props) => {
         const token = Cookies.get(TOKEN_STORAGE_KEY);
         axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
         const res = await axios.get('/video/' + id)
-        setPostData(res.data)
-        setLikes(res.data.like_count)
-        setcommentData(res.data.comments)
+        setPostData(res.data.data[0])
+        console.log(res.data.data[0])
+        setLikes(res.data.data[0].like_count)
+        setcommentData(res.data)
     }
 
-  
+     console.log(" url param",props.isAuthenticated.id)
+
+     const submitComment = () => {
+          
+    
+            const commentText  = textComment
+             const userid  = props.isAuthenticated.id
+             const postid = props.postid
+    
+         
+        socket.emit("feedcomment", { commentText, userid, postid}, (error) => {
+            if (error) alert(error);
+          });
+     }
 
     
     const handleLikeClick = (action) => {
@@ -57,7 +93,10 @@ const PostDetail = (props) => {
         setIsLiked(action === 'liked');
         setLikes(newLike);
       };
-    
+
+      const handleComment = (e) => {
+        settextComment(e.currentTarget.value)
+    }
      
 
     return (
@@ -74,7 +113,7 @@ const PostDetail = (props) => {
                     outline: 'none',
                 }}>
                     <div className="flex space-x-4">
-                        <img src='/images/user.png'
+                        <img src={`https://nurbansports.com/pimus/public/profilepix/${postData.propix}`}
                             width={10}
                             height={10}
                             className="rounded-full md:w-[3.0rem] md:h-[3.0rem] h-[3.0rem] w-[3.0rem] userimg" />
@@ -82,11 +121,10 @@ const PostDetail = (props) => {
                             <div className="">
                                 <h2 className="text-#4a4a58">
                                     
-                                    {/* name */}
-                                    .
+                                   {postData.f_name}
                                     
                                     </h2>
-                                <p className="text-sm text-[#f04c30]">...</p>
+                                <p className="text-sm text-[#f04c30]"> {postData.username}</p>
                             </div>
                             <div className="flex space-x-2 right-4 absolute"> <p className="text-sm">...</p> </div>
 
@@ -110,7 +148,7 @@ const PostDetail = (props) => {
                     <div className="flex space-x-4 mb-4 ml-2 mt-2">
                         <AiOutlineMessage
 
-                            className="text-xl hover:text-[#f04c30] focus:text-[#f04c30]"
+                            className="text-xl hover:text-[#f04c30] focus:text-[#f04c30]" onClick={StartComment}
 
                         />
                        
@@ -132,58 +170,51 @@ const PostDetail = (props) => {
                     </div>
 
 
+
+                
+
+            
                 </div>
                 <hr className=" mt-4 w-full border-2" />
                
                 {/* comment area */}
 
                 {
+                    comment ? 
+                    <>
+                    <div className="mt-4 w-full mb-8" >
 
-                    commentData.length > 0 ?
+<textarea
+    value={textComment}
+    onChange={(e) => handleComment(e)}
+    placeholder="Comment Here" className="w-full placeholder-gray4 p-2 border-[1px]  border-yellow-500 rounded-md " >
 
-                    commentData.map((items, index) =>
-                    <div className=" shadow-lg rounded mt-4 ">
-                        
-                        <div className="">
-                            <div className="flex space-x-4">
-                                <img src='/images/user.png'
-                                    width={10}
-                                    height={10}
-                                    className="rounded-full md:w-[3.0rem] md:h-[3.0rem] h-[3.0rem] w-[3.0rem] userimg" />
-                                <div className="mt-6 flex">
-                                    <div className="">
-                                        <h2 className="text-#4a4a58">
-                                            {items.user.name}
-                                            
-                                            </h2>
-                                        <p className="text-sm text-[#f04c30]">@
-                                        
-                                        {items.user.username}
-                                        
-                                        </p>
-                                    </div>
-                                    <div className="flex space-x-2 right-4 absolute"> <p className="text-sm">2 hours</p>  <span>...</span></div>
+</textarea>
 
-                                </div>
-                            </div>
-                            <div className="flex text-justify ml-20  ">
-                                <p className="text-sm text-[#4a4a58]">
-                                    {items.comment}
-                                </p>
-                            </div>
-                        </div>
+<div className="flex absolute right-8 space-x-2 mb-10 mt-1">
+    {
+        textmsg ?
+            <>
+                <p className="text-green-700"> {textmsg} </p>
+            </>
+            :
+            <>
+            </>
+    }
+    <button className=" rounded-lg border-2 bg-[#f04c30] text-white"><span className="mx-2 my-2" onClick={submitComment}>Reply</span></button>
 
-                    </div>
-                    )
-                        :
-                        <>
-                            <div className=" shadow-lg rounded mt-4 ">
-                                <h3 className="text-sm text-[#4a4a58]"> No Comment yet</h3>
-                            </div>
-                        </>
+</div>
+</div>
+
+                    </>
+                    :
+                    <>
+                    </>
                 }
-
             </div>
+
+
+            
 
             <div className="h-10 mt-10">
                     <h3>
@@ -202,7 +233,13 @@ const PostDetail = (props) => {
 
 
 
-export default PostDetail
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.user,
+    loginError: state.auth.loginError,
+    loading: state.auth.loginLoading,
+});
+export default connect(mapStateToProps)(PostDetail);
 
 
 export async function getServerSideProps({ params, req, res }) {
