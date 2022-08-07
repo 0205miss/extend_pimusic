@@ -14,6 +14,7 @@ function Chatbox(props) {
    const [currentMessage, setCurrentMessage] = useState("");
    const [messageList, setMessageList] = useState([]);
 
+
    const sendMessage = async () => {
      
     if (currentMessage !== "") {
@@ -22,19 +23,32 @@ function Chatbox(props) {
         Dmuser: Dmuser,
         message: currentMessage,
         activeusername: props.isAuthenticated.username,
-        dmusername: props.userInfo.username,
-        room: props.isAuthenticated.username+'/'+ props.userInfo.username,
+        room: props.isAuthenticated.username+'T'+ props.userInfo.username,
         time:
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
       };
 
-      await socket.emit("send_message", messageData);
+      await socket.emit("sendMessage", messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
     }
   };
+
+   useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageList((list) => [...list, data]);
+    });
+  }, [socket]);
+
+  
+  console.log("message->listing",messageList)
+    
+   
+   
+
+
 
     return (
         <div>
@@ -46,7 +60,7 @@ function Chatbox(props) {
             return (
               <div
                 className="message"
-                //id={username === messageContent.author ? "you" : "other"}
+                id={ props.isAuthenticated.username === messageContent.active ? "you" : "other"}
               >
                 <div>
                   <div className="message-content">
@@ -54,7 +68,7 @@ function Chatbox(props) {
                   </div>
                   <div className="message-meta">
                     <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.us}</p>
+                    <p id="author">{messageContent.active}</p>
                   </div>
                 </div>
               </div>

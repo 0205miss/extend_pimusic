@@ -26,6 +26,7 @@ import { useRouter } from 'next/router';
 
 import { IPost } from '../../setups';
 import io from "socket.io-client";
+import { message } from 'antd';
 
 
 
@@ -34,15 +35,16 @@ const PostDetail = (props) => {
      
 
     const [postData, setPostData] = useState('');
+    const [postcommentData, setPostcommentData] = useState('');
     const [commentData, setcommentData] = useState('');
     const [likes, setLikes] = useState("");
     const [isLiked, setIsLiked] = useState(false);
     const [textComment, settextComment] = useState('');
     const [textmsg, setTextmsg] = useState('');
+    const [receiveComment, setReceiveComment] = useState([]);
     const [comment, setComment] = useState(true);
-
     const socket = io.connect("http://localhost:5000");
-    
+
 
     const StartComment = (e) => {
         const { id } = e.target
@@ -59,8 +61,21 @@ const PostDetail = (props) => {
 
     useEffect(() => {
         getPostDetails(props.postid);
+        getComments(props.postid)
+
     }, []);
 
+
+
+    const getComments = async (id) => {
+        const TOKEN_STORAGE_KEY = 'token';
+        const token = Cookies.get(TOKEN_STORAGE_KEY);
+        axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+        const res = await axios.get('http://localhost:5000/comment' + id)
+        setPostcommentData(res.data.data[0])
+        
+    }
+        
     const getPostDetails = async (id) => {
         const TOKEN_STORAGE_KEY = 'token';
         const token = Cookies.get(TOKEN_STORAGE_KEY);
@@ -74,17 +89,20 @@ const PostDetail = (props) => {
 
      console.log(" url param",props.isAuthenticated.id)
 
+     socket.on("comments", (senddata) => {
+        setReceiveComment([...receiveComment, senddata])
+     }) 
+    //    reply to a feed
      const submitComment = () => {
-          
-    
             const commentText  = textComment
              const userid  = props.isAuthenticated.id
              const postid = props.postid
-    
-         
+
         socket.emit("feedcomment", { commentText, userid, postid}, (error) => {
             if (error) alert(error);
           });
+          settextComment('')
+         
      }
 
     
@@ -179,7 +197,59 @@ const PostDetail = (props) => {
                
                 {/* comment area */}
 
-                {
+
+            </div>
+
+
+                    
+            {
+
+receiveComment.length > 0 ?
+
+receiveComment.map((items) =>
+<div className=" shadow-lg rounded mt-4 ">
+    
+    <div className="">
+        <div className="flex space-x-4">
+            <img src='/images/user.png'
+                width={10}
+                height={10}
+                className="rounded-full md:w-[3.0rem] md:h-[3.0rem] h-[3.0rem] w-[3.0rem] userimg" />
+            <div className="mt-6 flex">
+                <div className="">
+                    <h2 className="text-#4a4a58">
+                        {items.senddata.name}
+                        {console.log("check items content ",items)}
+                        
+                        </h2>
+                    <p className="text-sm text-[#f04c30]">@
+                    
+                    {items.senddata.username}
+                    
+                    </p>
+                </div>
+                <div className="flex space-x-2 right-4 absolute"> <p className="text-sm">2 hours</p>  <span>...</span></div>
+
+            </div>
+        </div>
+        <div className="flex text-justify ml-20  ">
+            <p className="text-sm text-[#4a4a58]">
+                {items.senddata.text}
+            </p>
+        </div>
+    </div>
+
+</div>
+)
+    :
+    <>
+        <div className=" shadow-lg rounded mt-4 ">
+            <h3 className="text-sm text-[#4a4a58]"> No Comment yet</h3>
+        </div>
+    </>
+}
+
+{
                     comment ? 
                     <>
                     <div className="mt-4 w-full mb-8" >
@@ -211,12 +281,11 @@ const PostDetail = (props) => {
                     <>
                     </>
                 }
-            </div>
 
 
             
 
-            <div className="h-10 mt-10">
+            <div className="h-20 mt-10">
                     <h3>
                        
                     </h3>
