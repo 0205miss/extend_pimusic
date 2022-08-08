@@ -10,7 +10,7 @@ import io from "socket.io-client";
 function Chatbox(props) {
    const activeuser = props.isAuthenticated.id
    const Dmuser = props.userInfo.id
-   const socket = io.connect("http://localhost:5000");
+   const socket = io.connect("https://msc-a.co");
    const [currentMessage, setCurrentMessage] = useState("");
    const [messageList, setMessageList] = useState([]);
 

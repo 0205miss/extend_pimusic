@@ -43,7 +43,7 @@ const PostDetail = (props) => {
     const [textmsg, setTextmsg] = useState('');
     const [receiveComment, setReceiveComment] = useState([]);
     const [comment, setComment] = useState(true);
-    const socket = io.connect("http://localhost:5000");
+    const socket = io.connect("https://msc-a.co");
 
 
     const StartComment = (e) => {
@@ -71,10 +71,15 @@ const PostDetail = (props) => {
         const TOKEN_STORAGE_KEY = 'token';
         const token = Cookies.get(TOKEN_STORAGE_KEY);
         axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-        const res = await axios.get('http://localhost:5000/comment' + id)
-        setPostcommentData(res.data.data[0])
+        // const res = await axios.get('http://localhost:5000/comment' + id)
+        // setPostcommentData(res.data.data[0])
         
     }
+
+    const Time = new Date(Date.now()).getHours() +
+    ":" +
+    new Date(Date.now()).getMinutes();
+     
         
     const getPostDetails = async (id) => {
         const TOKEN_STORAGE_KEY = 'token';
@@ -97,7 +102,7 @@ const PostDetail = (props) => {
             const commentText  = textComment
              const userid  = props.isAuthenticated.id
              const postid = props.postid
-
+                console.log( commentText, userid, postid)
         socket.emit("feedcomment", { commentText, userid, postid}, (error) => {
             if (error) alert(error);
           });
@@ -211,10 +216,20 @@ receiveComment.map((items) =>
     
     <div className="">
         <div className="flex space-x-4">
-            <img src='/images/user.png'
+           {
+               items.senddata.img != null ?
+               <img src={`https://nurbansports.com/pimus/public/profilepix/${items.senddata.img}`}
                 width={10}
                 height={10}
                 className="rounded-full md:w-[3.0rem] md:h-[3.0rem] h-[3.0rem] w-[3.0rem] userimg" />
+                :
+                                                        <div className="rounded-full md:w-[3.0rem] md:h-[3.0rem] h-[3.0rem] w-[3.0rem] userimg bg-yellow-600">
+                                                            <div className=" flex text-center mt-2 ml-2" >
+                                                                <p>{items.senddata.username.substring(0, 3)}</p>
+                                                            </div>
+                                                        </div>
+                                                    
+           }
             <div className="mt-6 flex">
                 <div className="">
                     <h2 className="text-#4a4a58">
@@ -228,7 +243,7 @@ receiveComment.map((items) =>
                     
                     </p>
                 </div>
-                <div className="flex space-x-2 right-4 absolute"> <p className="text-sm">2 hours</p>  <span>...</span></div>
+                <div className="flex space-x-2 right-4 absolute"> <p className="text-sm">{Time}</p>  <span>...</span></div>
 
             </div>
         </div>
