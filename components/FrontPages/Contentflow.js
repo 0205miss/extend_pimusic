@@ -48,7 +48,7 @@ function RenderSearch(props) {
 
     useEffect(() => {
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: true})
+        Pi.init({ version: '2.0', sandbox: false})
 
     //     const scopes = ['username', 'payment']
     // function onIncompletePaymentFound(payment) {
