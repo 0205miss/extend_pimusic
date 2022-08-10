@@ -60,7 +60,7 @@ function RenderSearch(props) {
     
     //         Pi.authenticate(scopes, onIncompletePaymentFound)
     //     }
-        auth()
+        // auth()
         fetchMyFeed()
     }, [])
 

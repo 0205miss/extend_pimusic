@@ -25,20 +25,21 @@ import Cookies from 'js-cookie';
  */
 
 export const TOKEN_STORAGE_KEY = 'token';
+ export const USERINFO  = "user";               
 
-const headers = {}
-
-export const loadUser = () => {
-
+export const loadUser = (username) => {
+    
     return async (dispatch: CallableFunction) => {
         try {
 
-            await axios.get("/sanctum/csrf-cookie");
-            const token = Cookies.get(TOKEN_STORAGE_KEY);
-            axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
-            const res = await axios.get("/user");
+            //await axios.get("/sanctum/csrf-cookie");
+            //const token = Cookies.get(TOKEN_STORAGE_KEY);
+            //axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+            const res = await axios.post("/users", {username});
             if (res.status === 200) {
-                dispatch({ type: types.USER_LOADED, payload: res.data });
+                Cookies.set(USERINFO, res.data.data.username);
+                
+                // dispatch({ type: types.USER_LOADED, payload: res.data });
                 return res.data;
             }
         } catch (error) {
@@ -74,24 +75,26 @@ export const loadUser = () => {
  * @param {string} password
  *   The password of the user.
  */
-export const login = (email: string, password: string): any => {
-
+export const login = (username: string, uid: string): any => {
+           console.log("explore url : ",username, uid)
     return async (dispatch: CallableFunction) => {
         try {
             // Start loading.
             dispatch({ type: types.START_LOGIN_LOADING });
 
             // Make api requests.
-            await axios.get("/sanctum/csrf-cookie");
-            const res = await axios.post("/login", {
-                email,
-                password,
+            // await axios.get("/sanctum/csrf-cookie");
+            const res = await axios.post("/user_auth", {
+                username,
+                uid,
             });
 
-            // Authentication was successful.
+            //Authentication was successful.
             if (res.status === 200) {
                 Cookies.set(TOKEN_STORAGE_KEY, res.data.token);
-                dispatch(loadUser());
+                console.log("token err",res.data.token)
+
+                dispatch(loadUser(res.data.token));
                 dispatch({
                     type: types.LOGIN_SUCCESS,
                 });
@@ -162,7 +165,7 @@ export const register = (
             // Load the user if registration was successful.
             if (res.status === 200) {
                 Cookies.set(TOKEN_STORAGE_KEY, res.data.token);
-                dispatch(loadUser());
+                dispatch(loadUser(res.data.token));
             }
         } catch (error: any) {
             if (error.response && error.response.status === 422) {
