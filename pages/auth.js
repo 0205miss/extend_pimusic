@@ -22,8 +22,9 @@ function Login(props) {
 
     // Redirect to user home route if user is authenticated.
     useEffect(() => {
+        console.log("abuchi -> ",process.env.NODE_ENV)
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: true})
+        Pi.init({ version: '2.0', sandbox: `<%= ${process.env.NODE_ENV} !== 'production' %>`})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
@@ -33,6 +34,8 @@ function Login(props) {
    /**
      * Submit the form.
      */
+
+    console.log("abuchi -> ",process.env.NODE_ENV)
     const  submit = async () => {
       
         axios.defaults.headers.common = { 'Authorization': `Bearer ${userAuth.accessToken}` }
