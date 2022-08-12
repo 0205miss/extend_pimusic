@@ -24,7 +24,7 @@ function Login(props) {
     useEffect(() => {
         console.log("abuchi -> ",process.env.NODE_ENV)
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: false})
+        Pi.init({ version: '2.0', sandbox: true})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
@@ -64,7 +64,9 @@ function Login(props) {
          
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
             setUserAuth(auth) 
+            alert(auth)
             console.log("auth user", auth)
+
         }).catch(function (error) {
 
             console.log(error, "Authentication error msg")

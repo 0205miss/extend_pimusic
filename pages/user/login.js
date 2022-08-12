@@ -23,7 +23,7 @@ function Login(props) {
     // Redirect to user home route if user is authenticated.
     useEffect(() => {
         const Pi = window.Pi;
-        Pi.init({ version: '2.0',sandbox: false})
+        Pi.init({ version: '2.0',sandbox: true})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
@@ -62,7 +62,8 @@ function Login(props) {
          
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
             setUserAuth(auth) 
-            console.log("auth user", auth)
+            alert(auth.user.username)
+            console.log("auth user", auth.user)
         }).catch(function (error) {
 
             console.log(error, "Authentication error msg")

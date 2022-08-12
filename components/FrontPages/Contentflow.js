@@ -48,7 +48,7 @@ function RenderSearch(props) {
 
     useEffect(() => {
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: false})
+        Pi.init({ version: '2.0', sandbox: true})
         
 
     //     const scopes = ['username', 'payment']
@@ -83,7 +83,7 @@ function RenderSearch(props) {
         }
          console.log("auth user !")
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
-            console.log(`Hi there! You're ready to make payments!`);
+            alert(auth.user.username)
         }).catch(function (error) {
             console.log(error, "Authentication error msg")
         })
