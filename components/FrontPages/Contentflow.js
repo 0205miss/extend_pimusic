@@ -67,9 +67,9 @@ function RenderSearch(props) {
 
 
     const auth = async () => {
-
+        alert("username")
         const scopes = ['username', 'payments']
-        console.log(scopes)
+       
 
         function onIncompletePaymentFound(payment) {
             console.log("onincomplete")
@@ -85,6 +85,7 @@ function RenderSearch(props) {
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
             alert(auth.user.username)
         }).catch(function (error) {
+            alert(error)
             console.log(error, "Authentication error msg")
         })
 

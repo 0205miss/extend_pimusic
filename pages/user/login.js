@@ -23,7 +23,7 @@ function Login(props) {
     // Redirect to user home route if user is authenticated.
     useEffect(() => {
         const Pi = window.Pi;
-        Pi.init({ version: '2.0',sandbox: true})
+        Pi.init({ version: '2.0',sandbox: false})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
@@ -44,23 +44,25 @@ function Login(props) {
     }
 
 
-    console.log("abuchi -> ",process.env.NODE_ENV)
-    const auth = async () => {
-
-        const scopes = ['username', 'payments']
-
-        function onIncompletePaymentFound(payment) {
     
+    const auth = async () => {
+       
+        const scopes = ['username', 'payments']
+        alert(scopes)
+        
+        function onIncompletePaymentFound(payment) {
             var data = {
                 'action': 'incomplete',
                 'paymentId': payment,
                 'txId': '',
                 'app_client': 'auth_app1'
             }
+           
             return axios.post('https://nurbansports.com/pimus/public/pinetworkpay', data)
         }
          
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
+        
             setUserAuth(auth) 
             alert(auth.user.username)
             console.log("auth user", auth.user)
