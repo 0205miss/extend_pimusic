@@ -24,7 +24,7 @@ function Login(props) {
     useEffect(() => {
         console.log("abuchi -> ",process.env.NODE_ENV)
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: `<%= ${process.env.NODE_ENV} !== 'production' %>`})
+        Pi.init({ version: '2.0', sandbox: false})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);

@@ -23,7 +23,7 @@ function Login(props) {
     // Redirect to user home route if user is authenticated.
     useEffect(() => {
         const Pi = window.Pi;
-        Pi.init({ version: '2.0',sandbox: `<%= ${process.env.NODE_ENV} !== 'production' %>`})
+        Pi.init({ version: '2.0',sandbox: false})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
