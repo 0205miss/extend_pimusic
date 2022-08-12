@@ -60,7 +60,7 @@ function Login(props) {
             return axios.post('https://nurbansports.com/pimus/public/pinetworkpay', data)
         }
          
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
+        await Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
             setUserAuth(auth) 
             console.log("auth user", auth)
         }).catch(function (error) {

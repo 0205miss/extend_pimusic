@@ -12,8 +12,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { SmallSpinner } from "@/components/Spinner/Spinner";
 import axios from "axios";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+
 
 function Login(props) {
+    <Html>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+                <script>Pi.init({ `version: "2.0"`})</script>
+     </Html>
      const [userAuth, setUserAuth ] = useState([])
 
 

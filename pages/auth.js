@@ -24,7 +24,7 @@ function Login(props) {
     useEffect(() => {
         console.log("abuchi -> ",process.env.NODE_ENV)
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: true})
+        Pi.init({ version: '2.0'})
            auth()
         if (props.isAuthenticated && !props.loading) {
             router.push(process.env.NEXT_PUBLIC_USER_HOME_ROUTE);
@@ -62,7 +62,7 @@ function Login(props) {
             return axios.post('https://nurbansports.com/pimus/public/pinetworkpay', data)
         }
          
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
+        await Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
             setUserAuth(auth) 
             alert(auth)
             console.log("auth user", auth)

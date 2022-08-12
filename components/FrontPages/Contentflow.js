@@ -48,7 +48,7 @@ function RenderSearch(props) {
 
     useEffect(() => {
         const Pi = window.Pi;
-        Pi.init({ version: '2.0', sandbox: true})
+        Pi.init({ version: '2.0'})
         
 
     //     const scopes = ['username', 'payment']
@@ -67,7 +67,7 @@ function RenderSearch(props) {
 
 
     const auth = async () => {
-        alert("username")
+       
         const scopes = ['username', 'payments']
        
 
@@ -82,7 +82,7 @@ function RenderSearch(props) {
             return axios.post('https://nurbansports.com/pimus/public/pinetworkpay', data)
         }
          console.log("auth user !")
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
+        await Pi.authenticate(scopes, onIncompletePaymentFound).then(function (auth) {
             alert(auth.user.username)
         }).catch(function (error) {
             alert(error)
